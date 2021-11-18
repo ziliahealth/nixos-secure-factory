@@ -72,10 +72,6 @@ def init_ctx_dict_instance(
         ctx.obj = mk_ctx_dict_obj()
 
     existing_value = ctx.obj.get(key)
-    # assert existing_value is None, (
-    #     f"Unexpected pre-existing value at key '{key}' of type: "
-    #     f"'{type(existing_value).__name__}'"
-    # )
 
     ctx.obj[key] = value
 
