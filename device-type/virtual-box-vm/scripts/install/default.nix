@@ -1,4 +1,5 @@
 { stdenv
+, lib
 , nsf-device-common-install
 , makeWrapper
 , coreutils
@@ -53,7 +54,7 @@ stdenv.mkDerivation rec {
     for cmd in $(find "$out/share/${pname}/bin" -mindepth 1 -maxdepth 1); do
       target_cmd_basename="$(basename "$cmd")"
       makeWrapper "$cmd" "$out/bin/$target_cmd_basename" \
-        --prefix PATH : "${stdenv.lib.makeBinPath buildInputs}" \
+        --prefix PATH : "${lib.makeBinPath buildInputs}" \
         --prefix PATH : "$out/share/${pname}/bin"
     done
   '';

@@ -52,7 +52,7 @@ stdenv.mkDerivation rec {
   pythonPathDeps = lib.strings.makeSearchPath "python-lib" [
   ];
 
-  binPathDeps = stdenv.lib.makeBinPath buildInputs;
+  binPathDeps = lib.makeBinPath buildInputs;
 
   installPhase = ''
     mkdir -p "$out/share/${pname}"

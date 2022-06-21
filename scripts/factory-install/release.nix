@@ -1,28 +1,30 @@
 { pkgs ? null } @ args:
-
 let
   repoRootDir = ../..;
-  pkgs = (import (
-      repoRootDir + "/.nix/release.nix") {}
-    ).ensurePkgs args;
+  pkgs = (import
+    (
+      repoRootDir + "/.nix/release.nix"
+    )
+    { }
+  ).ensurePkgs args;
 in
-
 with pkgs;
-
 let
   pyRelease = import
-    ./py/release.nix {
+    ./py/release.nix
+    {
       inherit pkgs;
     };
 
   nsf-factory-install-py = pyRelease.default;
 
-  default = (callPackage ./. {
+  default = (callPackage ./.
+    {
       inherit nsf-pin-cli;
       inherit nsf-shc-nix-lib;
       inherit nsf-factory-common-install;
       inherit nsf-factory-install-py;
-  } // {
+    } // {
     envShellHook = writeScript "envShellHook.sh" ''
       source "${nsf-factory-common-install.envShellHook}"
     '';
@@ -33,17 +35,17 @@ let
     paths = [ default ];
   };
 
-# defaultPython = default.python-interpreter;
+  # defaultPython = default.python-interpreter;
   devPython = python3.withPackages (pp: with pp; (
-      default.python-packages ++ [
-    pytest
-    mypy
-    flake8
-    ipython
-  ]));
+    default.python-packages ++ [
+      pytest
+      mypy
+      flake8
+      ipython
+    ]
+  ));
   pyShellHookLib = pyRelease.shell-hook-lib;
 in
-
 rec {
   inherit default env;
   py-release = pyRelease;

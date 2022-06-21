@@ -12,17 +12,14 @@
 , nsf-factory-common-install
 , nsf-factory-install-py
 }:
-
 let
-
-pythonLib = nsf-factory-install-py;
-pythonPkgs = with python3.pkgs; [
+  pythonLib = nsf-factory-install-py;
+  pythonPkgs = with python3.pkgs; [
     pythonLib
   ];
-pythonInterpreter = python3.withPackages (pp: pythonPkgs);
+  pythonInterpreter = python3.withPackages (pp: pythonPkgs);
 
 in
-
 stdenv.mkDerivation rec {
   version = "0.1.0";
   pname = "nsf-factory-install";
@@ -78,7 +75,7 @@ stdenv.mkDerivation rec {
     for cmd in $(find "$out/share/${pname}/bin" -mindepth 1 -maxdepth 1); do
       target_cmd_basename="$(basename "$cmd")"
       makeWrapper "$cmd" "$out/bin/$target_cmd_basename" \
-        --prefix PATH : "${stdenv.lib.makeBinPath buildInputs}" \
+        --prefix PATH : "${lib.makeBinPath buildInputs}" \
         --prefix PATH : "$out/share/${pname}/bin"
     done
   '';

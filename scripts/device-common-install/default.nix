@@ -1,4 +1,5 @@
 { stdenv
+, lib
 , makeWrapper
 , nsf-common-install
 , coreutils
@@ -8,9 +9,9 @@
 , parted
 , lvm2
 , nix
-# , nixos-install
-# , nixos-generate-config
-# , util-linux
+  # , nixos-install
+  # , nixos-generate-config
+  # , util-linux
 , openssh
 , sshfs-fuse
 , usermount
@@ -66,7 +67,7 @@ stdenv.mkDerivation rec {
     for cmd in $(find "$out/share/${pname}/bin" -mindepth 1 -maxdepth 1); do
       target_cmd_basename="$(basename "$cmd")"
       makeWrapper "$cmd" "$out/bin/$target_cmd_basename" \
-        --prefix PATH : "${stdenv.lib.makeBinPath buildInputs}" \
+        --prefix PATH : "${lib.makeBinPath buildInputs}" \
         --prefix PATH : "$out/share/${pname}/bin"
     done
   '';

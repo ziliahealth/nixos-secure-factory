@@ -25,17 +25,14 @@
 , tightvnc
 , nsf-factory-common-install-py
 }:
-
 let
-
-pythonLib = nsf-factory-common-install-py;
-pythonPkgs = with python3.pkgs; [
+  pythonLib = nsf-factory-common-install-py;
+  pythonPkgs = with python3.pkgs; [
     pythonLib
   ];
-pythonInterpreter = python3.withPackages (pp: pythonPkgs);
+  pythonInterpreter = python3.withPackages (pp: pythonPkgs);
 
 in
-
 stdenv.mkDerivation rec {
   version = "0.1.0";
   pname = "nsf-factory-common-install";
@@ -108,7 +105,7 @@ stdenv.mkDerivation rec {
   '';
 
 
-  binPathDeps = stdenv.lib.makeBinPath buildInputs;
+  binPathDeps = lib.makeBinPath buildInputs;
 
   buildPhase = "true";
 
