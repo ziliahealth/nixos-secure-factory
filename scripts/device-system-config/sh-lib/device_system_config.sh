@@ -57,6 +57,8 @@ build_nixos_config_dir() {
   local outLink="$tmpdir/nixos_config_dir"
 
   nix build \
+    -v \
+    --show-trace \
     --out-link "$outLink" \
     -f "$config_filename" \
     "$@" \
@@ -195,6 +197,8 @@ build_device_config_system_closure() {
   # This will allow the user to override some of the fixed -I
   # instructions here.
   nix build \
+    -v \
+    --show-trace \
     --out-link "$outLink" \
     -f "$nixos_src/nixos" \
     "$@" \
