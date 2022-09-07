@@ -26,7 +26,7 @@ build_nix_search_path_args_from_search_path_srcs() {
   while read -r path; do
     local pathName
     pathName="$(basename "$path")"
-    out_array+=( "-I" "$pathName=$path" )
+    out_array+=( "-I" "$pathName=$( readlink -f "$path" )" )
   done < <(echo "$search_path_srcs")
 }
 
