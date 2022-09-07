@@ -91,7 +91,7 @@ let
   loadDeployFileAt = absFn: bOpts:
     let
       fnCwd = builtins.dirOf absFn;
-      rawBundle = builtins.fromJSON (builtins.readFile absFn);
+      rawBundle = builtins.fromJSON (builtins.readFile "${absFn}");
     in
       rawBundle // {
         bundleDir = fnCwd;

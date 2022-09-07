@@ -165,6 +165,12 @@ build_device_config_system_closure() {
   local tmpdir
   tmpdir="$(mktemp -d)"
 
+  local configdir
+  configdir="$(mktemp -d)"
+
+  cp --no-preserve=ownership,mode -rT $system_cfg_dir $configdir
+  system_cfg_dir=$configdir
+
   local outLink="$tmpdir/system"
 
   local search_path_args=()
@@ -205,12 +211,13 @@ build_device_config_system_closure() {
     -I "nixos-config=${system_cfg_dir}$(get_device_config_etc_dir)/configuration.nix" \
     "${search_path_args[@]}" \
     system \
-    || { rm -rf "$tmpdir"; return 1; }
+    || { rm -rf "$tmpdir"; rm -rf "$configdir"; return 1; }
 
   local out_val
   out_val=$(readlink -f "$outLink") \
-    || { rm -rf "$tmpdir"; return 1; }
+    || { rm -rf "$tmpdir"; rm -rf "$configdir"; return 1; }
   rm -rf "$tmpdir"
+  rm -rf "$configdir"
 
   eval "$out_var_name='$out_val'"
   echo "build_device_config_system_closure end"
