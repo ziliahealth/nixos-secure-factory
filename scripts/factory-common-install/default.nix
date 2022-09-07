@@ -22,7 +22,7 @@
 , xclip
 , diffutils
 , bashInteractive
-, tightvnc
+, remmina
 , nsf-factory-common-install-py
 }:
 let
@@ -75,7 +75,7 @@ stdenv.mkDerivation rec {
     pwgen
     mkpasswd
 
-    tightvnc # provide vncviewer
+    remmina # provide vncviewer
     screen
     socat
     picocom
