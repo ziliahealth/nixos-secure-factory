@@ -14,7 +14,7 @@ buildPythonPackage rec  {
   pname = "nsf-factory-install-py";
   version = "0.1.0";
   src = ./.;
-  buildInputs = [];
+  buildInputs = [ ];
   checkInputs = [
     mypy
     pytest
@@ -34,11 +34,6 @@ buildPythonPackage rec  {
     pyyaml
     nsf-factory-common-install-py
   ];
-
-  postInstall = with nsf-shc-nix-lib; ''
-    ${nsfShC.pkg.installClickExesBashCompletion [
-    ]}
-  '';
 
   # Allow nix-shell inside nix-shell.
   # See `pkgs/development/interpreters/python/hooks/setuptools-build-hook.sh`

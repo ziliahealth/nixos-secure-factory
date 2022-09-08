@@ -1,8 +1,8 @@
 {
   "type": "fetchFromGitHub",
-  "owner": "jraygauthier",
+  "owner": "ziliahealth",
   "repo": "nsf-shc",
   "ref": "master",
-  "rev": "eddafd9bbdf47eeaca742edf0da29f69e35306c1",
-  "sha256": "0m8bz8fjdrjyvzp27npw1g22wpgk94jlcya2b1q99vsnhn9i8dsb"
+  "rev": "91db01a9615be61524b2e8df00604476aac4d42b",
+  "sha256": "LsiRuGiyROWJ1fbaZ0LN8TgbzNW4pXdEco3Ry9xOjD8="
 }

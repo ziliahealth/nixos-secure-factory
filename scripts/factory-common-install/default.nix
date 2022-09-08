@@ -120,15 +120,6 @@ stdenv.mkDerivation rec {
         --prefix PATH : "${binPathDeps}" \
         --prefix PATH : "$out/share/${pname}/bin"
     done
-
-    # Principally required for read -e -i 'Default value'
-    # but also, we need to patch programs earlier as we
-    # need to run some of these in order to produce bash
-    # completions just below.
-    PATH="${bashInteractive}/bin:$PATH" patchShebangs "$out"
-
-    ${nsfShC.pkg.installClickExesBashCompletion [
-    ]}
   '';
 
   meta = {

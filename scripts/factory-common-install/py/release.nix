@@ -2,9 +2,12 @@
 
 let
   repoRootDir = ../../..;
-  pkgs = (import (
-      repoRootDir + "/.nix/release.nix") {}
-    ).ensurePkgs args;
+  pkgs = (import
+    (
+      repoRootDir + "/.nix/release.nix"
+    )
+    { }
+  ).ensurePkgs args;
   wsRootDir = repoRootDir + "/..";
 in
 
@@ -13,7 +16,7 @@ with pkgs;
 let
   pythonPackages = python3Packages;
 
-  default = pythonPackages.callPackage ./. {};
+  default = pythonPackages.callPackage ./. { };
 
   env = mkShell {
     name = "${default.pname}-env";
@@ -35,34 +38,34 @@ let
   sfSshAuthCliLocalSrcDir = wsRootDir + "/nsf-ssh-auth/cli/src";
 
   shellHookLib = with nsf-py-nix-lib; writeShellScript "python-project-shell-hook-lib.sh" ''
-      source ${nsfPy.shell.shellHookLib}
+    source ${nsfPy.shell.shellHookLib}
 
-      sh_hook_py_add_local_pkg_src_nixos_sf_test_lib() {
-        nsf_py_add_local_pkg_src_if_present \
-          "${builtins.toString sfTestLibLocalSrcDir}"
-      }
+    sh_hook_py_add_local_pkg_src_nixos_sf_test_lib() {
+      nsf_py_add_local_pkg_src_if_present \
+        "${builtins.toString sfTestLibLocalSrcDir}"
+    }
 
-      sh_hook_py_add_local_pkg_src_nixos_sf_ssh_auth_cli() {
-        nsf_py_add_local_pkg_src_if_present \
-          "${builtins.toString sfSshAuthCliLocalSrcDir}"
-      }
+    sh_hook_py_add_local_pkg_src_nixos_sf_ssh_auth_cli() {
+      nsf_py_add_local_pkg_src_if_present \
+        "${builtins.toString sfSshAuthCliLocalSrcDir}"
+    }
 
-      sh_hook_py_add_local_pkg_src_nixos_sf_factory_common_install_py() {
-        nsf_py_add_local_pkg_src_if_present \
-          "${builtins.toString ./src}"
-      }
+    sh_hook_py_add_local_pkg_src_nixos_sf_factory_common_install_py() {
+      nsf_py_add_local_pkg_src_if_present \
+        "${builtins.toString ./src}"
+    }
   '';
 
   dev = default.overrideAttrs (oldAttrs: {
     buildInputs = oldAttrs.buildInputs
       ++ (with pythonPackages; [
-        pytest
-        mypy
-        flake8
-        ipython
-        autopep8
-        isort
-      ]);
+      pytest
+      mypy
+      flake8
+      ipython
+      autopep8
+      isort
+    ]);
 
     shellHook = with nsf-py-nix-lib; with nsf-shc-nix-lib; ''
       ${nsfPy.shell.runSetuptoolsShellHook "${builtins.toString ./.}" default}
@@ -103,7 +106,7 @@ rec {
       PYTHONPATH = "";
       MYPYPATH = "";
 
-      inputsFrom = [dev];
+      inputsFrom = [ dev ];
     };
   };
 
