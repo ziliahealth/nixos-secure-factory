@@ -72,26 +72,28 @@ run_sandboxed_gopass() {
 
 configure_gopass_store() {
   local store_id="$1"
-  run_sandboxed_gopass config --store "$store_id" autosync false
-  run_sandboxed_gopass config --store "$store_id" autoimport false
+  run_sandboxed_gopass init --store "$store_id"
+  run_sandboxed_gopass config autosync false
+  run_sandboxed_gopass config autoimport false
 
   # TODO: Consider this.
-  run_sandboxed_gopass config --store "$store_id" check_recipient_hash false
+  run_sandboxed_gopass config check_recipient_hash false
 
-  run_sandboxed_gopass config --store "$store_id" noconfirm true
-  run_sandboxed_gopass config --store "$store_id" nopager true
+  run_sandboxed_gopass config noconfirm true
+  run_sandboxed_gopass config nopager true
   # run_sandboxed_gopass config --store "$store_id" nocolor true
 
-  run_sandboxed_gopass config --store "$store_id" askformore false
-  run_sandboxed_gopass config --store "$store_id" notifications false
-  run_sandboxed_gopass config --store "$store_id" safecontent false
+  run_sandboxed_gopass config askformore false
+  run_sandboxed_gopass config notifications false
+  run_sandboxed_gopass config safecontent false
 }
 
 
 configure_gopass_root_store() {
   store_id=""
-  run_sandboxed_gopass config --store "$store_id" autosync false
-  run_sandboxed_gopass config --store "$store_id" autoimport false
+  run_sandboxed_gopass init --store "$store_id"
+  run_sandboxed_gopass config autosync false
+  run_sandboxed_gopass config autoimport false
 }
 
 
@@ -230,4 +232,3 @@ list_gopass_vault_authorized_gpg_ids_w_email_at() {
 
   list_gpg_id_w_email_from_key_files "${peers_gpg_pub_keys[@]}"
 }
-
