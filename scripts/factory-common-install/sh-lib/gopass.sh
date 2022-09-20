@@ -72,7 +72,7 @@ run_sandboxed_gopass() {
 
 configure_gopass_store() {
   local store_id="$1"
-  run_sandboxed_gopass init --store "$store_id"
+  run_sandboxed_gopass init --store "$store_id" || true
   run_sandboxed_gopass config autosync false
   run_sandboxed_gopass config autoimport false
 
@@ -91,7 +91,7 @@ configure_gopass_store() {
 
 configure_gopass_root_store() {
   store_id=""
-  run_sandboxed_gopass init --store "$store_id"
+  run_sandboxed_gopass init --store "$store_id" || true
   run_sandboxed_gopass config autosync false
   run_sandboxed_gopass config autoimport false
 }
