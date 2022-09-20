@@ -116,7 +116,7 @@ mount_factory_only_gopass_secrets_store_if_required() {
   local sdir
   sdir="$(get_gopass_factory_only_vault_repo_dir)"
 
-  echo_eval "factory-gopass mounts add -i '$gpg_key_id'" \
+  echo_eval "factory-gopass mounts add " \
     "'$sid'" \
     "'$sdir'"
 
@@ -134,10 +134,10 @@ mount_factory_gopass_secrets_stores() {
 
   # TODO: In case already mounted, validate that it points to expected repo.
   # TODO: Retrieve from factory config state.
-  echo_eval "factory-gopass mounts add -i '$gpg_key_id'" \
+  echo_eval "factory-gopass mounts add " \
     "'$(get_gopass_factory_only_vault_id)'" \
     "'$(get_gopass_factory_only_vault_repo_dir)'"
-  echo_eval "factory-gopass mounts add -i '$gpg_key_id'" \
+  echo_eval "factory-gopass mounts add " \
     "'$(get_gopass_device_vault_id)'" \
     "'$(get_gopass_device_vault_repo_dir)'"
 
@@ -171,7 +171,7 @@ mount_gopass_device_substore() {
   local factory_gpg_key_id
   read_or_prompt_for_factory_info__user_gpg_default_id "factory_gpg_key_id"
 
-  echo_eval "factory-gopass mounts add -i '$factory_gpg_key_id' '$sskey' '$ssdir'"
+  echo_eval "factory-gopass mounts add '$sskey' '$ssdir'"
   configure_gopass_store "$sskey"
 }
 
@@ -207,7 +207,7 @@ mount_gopass_factory_only_device_substore() {
   local factory_gpg_key_id
   read_or_prompt_for_factory_info__user_gpg_default_id "factory_gpg_key_id"
 
-  echo_eval "factory-gopass mounts add -i '$factory_gpg_key_id' '$sskey' '$ssdir'"
+  echo_eval "factory-gopass mounts add '$sskey' '$ssdir'"
   configure_gopass_store "$sskey"
 }
 
