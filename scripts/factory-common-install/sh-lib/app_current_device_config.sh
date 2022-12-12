@@ -316,6 +316,7 @@ _build_and_deploy_device_config_impl() {
   shift 1
   local system_closure
   _build_current_device_config_system_closure "system_closure" "$config_name" "$@"
+  echo "System closure: " $system_closure
   send_system_closure_to_device "$system_closure"
   install_system_closure_to_device "$system_closure"
 }
