@@ -197,6 +197,13 @@ build_device_config_system_closure() {
   nixos_src="${search_path_args_overrides_aa["nixos"]:-$nixos_src_from_sp_dir}"
   # echo "nixos_src='$nixos_src'"
 
+  echo "--out-link = " "$outLink"
+  echo "-f = " "$nixos_src/nixos"
+  echo "\$@ = " "$@"
+  echo "-I = " "nixos-config=${system_cfg_dir}$(get_device_config_etc_dir)/configuration.nix"
+  echo "search_path_args[@] = " "${search_path_args[@]}"
+  echo "system = " system
+
   # We call nix build with user custom args in front of
   # filtered_search_path_args ones. This is bause the leftmost
   # arg has priority over the rightmost one (-I in particular).
